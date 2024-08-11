@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import ProveedorView from '../views/proveedor/ProveedorView.vue';
+import CategoriaView from '../views/categoria/CategoriaView.vue';
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/proveedor',
     name: 'proveedor',
     component: ProveedorView,
+  },
+  {
+    path: '/categoria',
+    name: 'categoria',
+    component: CategoriaView,
   },
   {
     path: '/about',
