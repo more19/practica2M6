@@ -3,7 +3,7 @@ import { createStore } from 'vuex';
 export default createStore({
   state: {
     count: 0,
-    baseUrl: 'https://api.example.com',
+    baseUrl: process.env.VUE_APP_API_URL,
   },
   mutations: {
     increment(state) {
