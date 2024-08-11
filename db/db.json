@@ -15,6 +15,14 @@
         "estado": "activo",
         "userName": "mgomez",
         "password": "5678"
+      },
+      {
+        "id": 3,
+        "nombre": "Carlos López",
+        "rol": 2,
+        "estado": "inactivo",
+        "userName": "clopez",
+        "password": "abcd"
       }
     ],
     "proveedores": [
@@ -31,18 +39,30 @@
         "correo": "contacto@proveedorb.com",
         "celular": "+59187654321",
         "direccion": "Calle Falsa 456"
+      },
+      {
+        "id": 3,
+        "nombre": "Proveedor C",
+        "correo": "contacto@proveedorc.com",
+        "celular": "+59111223344",
+        "direccion": "Calle Verdadera 789"
       }
     ],
     "categorias": [
       {
         "id": 1,
-        "descripcion": "Categoría 1",
-        "estado": "activa"
+        "nombre": "Electrónica",
+        "descripcion": "Componentes y accesorios electrónicos"
       },
       {
         "id": 2,
-        "descripcion": "Categoría 2",
-        "estado": "inactiva"
+        "nombre": "Mecánica",
+        "descripcion": "Repuestos y herramientas mecánicas"
+      },
+      {
+        "id": 3,
+        "nombre": "Accesorios",
+        "descripcion": "Accesorios para vehículos"
       }
     ],
     "productos": [
@@ -67,6 +87,17 @@
         "stock": 30,
         "precio": 150.00,
         "categoriaId": 2
+      },
+      {
+        "id": 3,
+        "codigo": "P003",
+        "marca": "Marca C",
+        "medidas": "15x15",
+        "vehiculo": "Vehículo C",
+        "descripcion": "Producto de baja calidad",
+        "stock": 20,
+        "precio": 80.00,
+        "categoriaId": 3
       }
     ],
     "pedidos": [
@@ -87,6 +118,16 @@
         "proveedorId": 2,
         "productoId": 2,
         "usuarioId": 2
+      },
+      {
+        "id": 3,
+        "precio_compra": 200.00,
+        "cantidad": 2,
+        "fecha_pedido": "2024-08-12",
+        "proveedorId": 3,
+        "productoId": 3,
+        "usuarioId": 3
       }
     ]
   }
+  
