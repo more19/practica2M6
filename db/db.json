@@ -1,0 +1,92 @@
+{
+    "usuarios": [
+      {
+        "id": 1,
+        "nombre": "Juan Pérez",
+        "rol": 2,
+        "estado": "activo",
+        "userName": "jperez",
+        "password": "1234"
+      },
+      {
+        "id": 2,
+        "nombre": "María Gómez",
+        "rol": 1,
+        "estado": "activo",
+        "userName": "mgomez",
+        "password": "5678"
+      }
+    ],
+    "proveedores": [
+      {
+        "id": 1,
+        "nombre": "Proveedor A",
+        "correo": "contacto@proveedora.com",
+        "celular": "+59112345678",
+        "direccion": "Av. Siempre Viva 123"
+      },
+      {
+        "id": 2,
+        "nombre": "Proveedor B",
+        "correo": "contacto@proveedorb.com",
+        "celular": "+59187654321",
+        "direccion": "Calle Falsa 456"
+      }
+    ],
+    "categorias": [
+      {
+        "id": 1,
+        "descripcion": "Categoría 1",
+        "estado": "activa"
+      },
+      {
+        "id": 2,
+        "descripcion": "Categoría 2",
+        "estado": "inactiva"
+      }
+    ],
+    "productos": [
+      {
+        "id": 1,
+        "codigo": "P001",
+        "marca": "Marca A",
+        "medidas": "10x10",
+        "vehiculo": "Vehículo A",
+        "descripcion": "Producto de alta calidad",
+        "stock": 50,
+        "precio": 100.00,
+        "categoriaId": 1
+      },
+      {
+        "id": 2,
+        "codigo": "P002",
+        "marca": "Marca B",
+        "medidas": "20x20",
+        "vehiculo": "Vehículo B",
+        "descripcion": "Producto de calidad media",
+        "stock": 30,
+        "precio": 150.00,
+        "categoriaId": 2
+      }
+    ],
+    "pedidos": [
+      {
+        "id": 1,
+        "precio_compra": 500.00,
+        "cantidad": 5,
+        "fecha_pedido": "2024-08-10",
+        "proveedorId": 1,
+        "productoId": 1,
+        "usuarioId": 1
+      },
+      {
+        "id": 2,
+        "precio_compra": 300.00,
+        "cantidad": 3,
+        "fecha_pedido": "2024-08-11",
+        "proveedorId": 2,
+        "productoId": 2,
+        "usuarioId": 2
+      }
+    ]
+  }

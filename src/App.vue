@@ -1,10 +1,28 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <Menu>
+    <router-link to="/" class="menu-item">Home</router-link> 
+    <router-link to="/about" class="menu-item">About</router-link>
+  </Menu>
   <router-view/>
 </template>
+
+<script>
+
+import Menu from './components/Menu.vue';
+
+export default {
+  name:'App',
+  data(){
+    return {
+
+    }
+  },
+  components:{
+    Menu
+
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -14,7 +32,7 @@
   text-align: center;
   color: #2c3e50;
 }
-
+/*
 nav {
   padding: 30px;
 
@@ -26,5 +44,5 @@ nav {
       color: #42b983;
     }
   }
-}
+}*/
 </style>
