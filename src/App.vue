@@ -3,6 +3,8 @@
     <router-link to="/" class="menu-item">Home</router-link> 
     <router-link to="/about" class="menu-item">About</router-link>
     <router-link to="/usuarios" class="menu-item">Usuarios</router-link>
+    <router-link to="/proveedor" class="menu-item">Proveedores</router-link>
+    <router-link to="/categoria" class="menu-item">Categorias</router-link>
   </Menu>
   <router-view/>
 </template>
@@ -30,7 +32,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
 }
 /*

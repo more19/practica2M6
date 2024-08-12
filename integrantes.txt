@@ -1,0 +1,10 @@
+Practica 2 VUE3
+
+Nombres de Integrantes:
+- Morelia Hidalgo Caceres
+- Rodrigo Machaca Jimenez
+
+Pasos para iniciar el proyecto:
+1) npm install
+2) npm run serve
+3) json-server --watch db.json --port 4000
