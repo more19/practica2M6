@@ -1,8 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import UsuarioView from '../views/usuario/UsuarioView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import UsuarioView from '../views/usuario/UsuarioView.vue';
 import ProveedorView from '../views/proveedor/ProveedorView.vue';
 import CategoriaView from '../views/categoria/CategoriaView.vue';
+import ProductoView from '../views/producto/ProductoView.vue';
 
 const routes = [
   {
@@ -21,20 +22,26 @@ const routes = [
     component: CategoriaView,
   },
   {
+    path: '/producto',
+    name: 'producto',
+    component: ProductoView,
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
   },
   {
     path: '/usuarios',
     name: 'usuarios',
     component: UsuarioView,
-    // meta: { requiresAuth: true, role: ['admin','secretaria','veterinario'] } 
+    // meta: { requiresAuth: true, role: ['admin','secretaria','veterinario'] }
   },
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
