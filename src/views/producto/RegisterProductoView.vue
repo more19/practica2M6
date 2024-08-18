@@ -3,10 +3,19 @@
       <h1>Registrar Producto</h1>
       <form @submit.prevent="submitForm()">
         <div class="form-group">
-          <label for="codigo">Codigo:</label>
+          <label for="codigo">Codigo del producto:</label>
           <input type="text" id="name" v-model="form.codigo" :class="{ 'is-invalid': errors.codigo }"
             placeholder="Ingrese el codigo del producto" />
           <div v-if="errors.codigo" class="invalid-feedback">{{ errors.codigo }}</div>
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoria:</label>
+          <select id="categoria" v-model="form.categoriaId" :class="{ 'is-invalid': errors.categoriaId }">
+            <option :value="categoria.id" v-for="(categoria, index) in categoriaList" :key="`categoria-${index}`">{{ categoria.nombre }}
+            </option>
+          </select>
+          <div v-if="errors.categoriaId" class="invalid-feedback">{{ errors.categoriaId }}</div>
         </div>
 
         <div class="form-group">
@@ -15,12 +24,10 @@
             placeholder="Ingrese la marca del producto" />
         <div v-if="errors.marca" class="invalid-feedback">{{ errors.marca }}</div>
         </div>
-  <!--Falta Categoria-->
         <div class="form-group">
           <label for="medida">Medidas:</label>
-          <input type="medida" id="medidas" v-model="form.medidas" :class="{ 'is-invalid': errors.medidas }"
+          <input type="medida" id="medidas" v-model="form.medidas"
             placeholder="Ingrese las medidas (opcional)" />
-      <!--     <div v-if="errors.medidas" class="invalid-feedback">{{ errors.medidas }}</div> -->
         </div>
   
         <div class="form-group">
@@ -32,23 +39,22 @@
 
         <div class="form-group">
           <label for="stock">Stock/Cantidad:</label>
-          <input id="stock" v-model="form.stock" :class="{ 'is-invalid': errors.stock }"
+          <input type="number" id="stock" v-model="form.stock" :class="{ 'is-invalid': errors.stock }"
             placeholder="Ingrese el stock"/>
           <div v-if="errors.stock" class="invalid-feedback">{{ errors.stock }}</div>
         </div>
 
         <div class="form-group">
-          <label for="precio">Precio:</label>
-          <input id="precio" v-model="form.precio" :class="{ 'is-invalid': errors.precio }"
+          <label for="precio">Precio(Bs):</label>
+          <input type="text" id="precio" v-model="form.precio" :class="{ 'is-invalid': errors.precio }"
             placeholder="Ingrese el precio"/>
           <div v-if="errors.precio" class="invalid-feedback">{{ errors.precio }}</div>
         </div>
   
         <div class="form-group">
           <label for="descripcion">Descripcion:</label>
-          <textarea type="text" id="descripcion" v-model="form.descripcion" :class="{ 'is-invalid': errors.descripcion }"
+          <textarea type="text" id="descripcion" v-model="form.descripcion"
             placeholder="Ingrese la descripcion (opcional)"></textarea>
-      <!--     <div v-if="errors.medidas" class="invalid-feedback">{{ errors.medidas }}</div> -->
         </div>
         
         <button type="submit" class="btn btn-primary">Registrar</button>
@@ -62,8 +68,10 @@
     name: 'RegisterProducto',
     data() {
       return {
-        form: {//falta categoria
+        categoriaList: [],
+        form: {
           codigo: '',
+          categoriaId: null,
           marca: '',
           medidas: '',
           vehiculo: '',
@@ -78,35 +86,34 @@
       ...mapActions(['increment']),
       validateForm() {
         this.errors = {};
-  
         if (!this.form.codigo) {
           this.errors.codigo = 'El codigo es obligatorio.';
         }
-//falta categoria
+
+        if (!this.form.categoriaId) {
+          this.errors.categoriaId = 'La categoria es obligatorio.';
+        }
+
         if (!this.form.marca) {
           this.errors.marca = 'Marca es obligatorio.';
-        }
-  
-        if (!this.form.medidas) {
-          this.errors.medidas = 'Las medidas es obligatoria.';
         }
 
         if (!this.form.vehiculo) {
           this.errors.vehiculo = 'El vehiculo es obligatorio.';
         }
   
-        if (!this.form.descripcion) {
-          this.errors.direccion = 'La dirección es obligatoria.';
-        }
-  
         if (!this.form.stock) {
-          this.errors.stock = 'stock es obligatoria.';
+          this.errors.stock = 'stock es obligatorio.';
         }
 
-        if (!this.form.cantidad) {
-          this.errors.cantidad = 'stock es obligatoria.';
+        if (!this.form.precio) {
+          this.errors.precio = 'El precio es obligatorio.';
+        } else {
+          const precioPattern = /^\d+(\.\d{1,2})?$/;
+          if (!precioPattern.test(this.form.precio)) {
+            this.errors.precio = 'Por favor, ingrese un precio válido, con hasta dos decimales(opcional)';
+          }
         }
-  
         return Object.keys(this.errors).length === 0;
       },
   
@@ -117,6 +124,7 @@
           // Reiniciar el formulario
           this.form = {
             codigo: '',
+            categoriaId: null,
             marca: '',
             medidas: '',
             vehiculo: '',
@@ -128,6 +136,7 @@
       },
       save() {
         const vm = this;
+        console.log(this.form)
         this.axios.post(this.baseUrl + "/productos", this.form)
           .then(function (response) {
             if (response.status == '201') {
@@ -139,6 +148,16 @@
           .catch(function (error) {
             console.error(error);
           });
+      },
+      getCategoriaList(){
+        const vm = this;
+        this.axios.get(this.baseUrl + "/categorias")
+          .then(function (response) {
+            vm.categoriaList = response.data;
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
       }
     },
     computed: {
@@ -148,6 +167,9 @@
       baseUrl() {
         return this.getBaseUrl
       }
+    },
+    mounted(){
+      this.getCategoriaList();
     },
   }
   </script>

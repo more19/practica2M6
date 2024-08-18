@@ -10,7 +10,7 @@
             <h1>Lista de Productos</h1>
             <button @click="showModalNuevo = true" class="btn btn-primary">Nuevo</button>
         </div>
-        <button @click="buscar()" class="btn btn-lith" style="float:right">Buscar</button>
+        <button @click="buscar()" class="btn btn-lith" style="float:right">Buscar por codigo</button>
         <input type="search" style="float:right" v-model="textToSearch" @search="buscar()">
         <table>
             <thead>
@@ -23,7 +23,7 @@
                     <th>Vehiculo</th>
                     <th>Descripcion</th>
                     <th>Stock</th>
-                    <th>Precio</th>
+                    <th>Precio(Bs)</th>
                     <th></th>
                 </tr>
             </thead>
@@ -31,7 +31,7 @@
                 <tr v-for="(item, index) in itemList" :key="index">
                     <td>{{ 1 + index }}</td>
                     <td>{{ item.codigo }}</td>
-                    <td>{{ item.categoriaId }}</td>
+                    <td>{{ item.categoria.nombre }}</td>
                     <td>{{ item.marca }}</td>
                     <td>{{ item.medidas }}</td>
                     <td>{{ item.vehiculo }}</td>
@@ -79,7 +79,7 @@ export default {
         ...mapActions(['increment']),
         getList() {
             const vm = this;
-            this.axios.get(this.baseUrl + "/productos?_embed=categorias&q=" + this.textToSearch)
+            this.axios.get(this.baseUrl + "/productos?_expand=categoria&q=" + this.textToSearch)
                 .then(function (response) {
                     console.log(response);
                     vm.itemList = response.data;
