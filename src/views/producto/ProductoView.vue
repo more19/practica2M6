@@ -7,11 +7,50 @@
             <EditProductoView @on-update="onUpdate($event)" :item="itemToEdit" />
         </Modal>
         <div style="text-align: center;">
+
             <h1>Lista de Productos</h1>
             <button @click="showModalNuevo = true" class="btn btn-primary">Nuevo</button>
+
+            <!--  
+            
+            <button @click="buscar()" class="btn btn-lith" style="float:right">Buscar</button>
+            <input type="search" style="float:right" v-model="textToSearch" @search="buscar()">
+
+            <div style="margin: 20px 0;">
+                <h3>Filtro por Categoria</h3>
+                <select id="categoria" v-model="filter.categoriaId">
+                    <option :value="categoria.id" v-for="(categoria, index) in categoriaList"
+                        :key="`categoria-${index}`">{{
+                            categoria.nombre }}
+                    </option>
+                </select>
+                <button @click="filtrar()" class="btn btn-lith" style="float:right">Filtrar</button>
+
+            </div>
+-->
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                <button @click="buscar()" class="btn btn-lith">Buscar</button>
+                <input type="search" v-model="textToSearch" @search="buscar()" placeholder="Buscar..."
+                    style="margin-left: 10px;">
+
+                <div style="margin-left: auto; display: flex; align-items: center;">
+                    <h3 style="margin: 0 10px 0 0;">Filtro por Categoria</h3>
+                    <select id="categoria" v-model="filter.categoriaId" style="margin-right: 10px;">
+                        <option value="">
+                            Todos
+                        </option>
+                        <option :value="categoria.id" v-for="(categoria, index) in categoriaList"
+                            :key="`categoria-${index}`">
+                            {{ categoria.nombre }}
+                        </option>
+                    </select>
+                    <button @click="filtrar()" class="btn btn-lith">Filtrar</button>
+                </div>
+            </div>
+
+
         </div>
-        <button @click="buscar()" class="btn btn-lith" style="float:right">Buscar por codigo</button>
-        <input type="search" style="float:right" v-model="textToSearch" @search="buscar()">
         <table>
             <thead>
                 <tr>
@@ -47,7 +86,7 @@
         </table>
     </div>
 </template>
-  
+
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import Modal from '../../components/Modal.vue'
@@ -58,6 +97,10 @@ export default {
     name: 'Producto',
     data() {
         return {
+            categoriaList: [],
+            filter: {
+                categoriaId: '',
+            },
             message: 'Hola Mundo',
             currentPage: 1,
             totalPages: 100,
@@ -65,6 +108,7 @@ export default {
             showModalEdit: false,
             itemToEdit: null,
             textToSearch: '',
+            textToFilter: '',
             itemList: []
         }
     },
@@ -77,9 +121,19 @@ export default {
     methods: {
         // métodos que se pueden llamar desde la plantilla o desde otras partes del componente.
         ...mapActions(['increment']),
+        getCategoriaList() {
+            const vm = this;
+            this.axios.get(this.baseUrl + "/categorias")
+                .then(function (response) {
+                    vm.categoriaList = response.data;
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        },
         getList() {
             const vm = this;
-            this.axios.get(this.baseUrl + "/productos?_expand=categoria&q=" + this.textToSearch)
+            this.axios.get(this.baseUrl + "/productos?_expand=categoria" + this.textToFilter + "&q=" + this.textToSearch)
                 .then(function (response) {
                     console.log(response);
                     vm.itemList = response.data;
@@ -88,6 +142,28 @@ export default {
                     console.error(error);
                 });
         },
+        /*
+        filtrar() {
+            const vm = this;
+            this.axios.get(this.baseUrl + "/productos?_expand=categoria" + this.textToFilter + "&q=" + this.textToSearch)
+                .then(function (response) {
+                    console.log(response);
+                    vm.itemList = response.data;
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        },
+*/
+        filtrar() {
+            this.textToFilter = '';
+            if (this.filter.categoriaId != null && this.filter.categoriaId != '') {
+                this.textToFilter += "&categoriaId=" + this.filter.categoriaId;
+            }
+            this.getList();
+        },
+
+
         edit(item) {
             this.itemToEdit = Object.assign({}, item);
             this.showModalEdit = true;
@@ -140,10 +216,11 @@ export default {
         // propiedades que el componente puede recibir.
     },
     mounted() {
+        this.getCategoriaList();
         this.getList();
     },
     emits: [] // los eventos personalizados que el componente puede emitir.
 }
 </script>
-  
+
 <style></style>
