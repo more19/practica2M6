@@ -11,24 +11,6 @@
             <h1>Lista de Productos</h1>
             <button @click="showModalNuevo = true" class="btn btn-primary">Nuevo</button>
 
-            <!--  
-            
-            <button @click="buscar()" class="btn btn-lith" style="float:right">Buscar</button>
-            <input type="search" style="float:right" v-model="textToSearch" @search="buscar()">
-
-            <div style="margin: 20px 0;">
-                <h3>Filtro por Categoria</h3>
-                <select id="categoria" v-model="filter.categoriaId">
-                    <option :value="categoria.id" v-for="(categoria, index) in categoriaList"
-                        :key="`categoria-${index}`">{{
-                            categoria.nombre }}
-                    </option>
-                </select>
-                <button @click="filtrar()" class="btn btn-lith" style="float:right">Filtrar</button>
-
-            </div>
--->
-
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
                 <button @click="buscar()" class="btn btn-lith">Buscar</button>
                 <input type="search" v-model="textToSearch" @search="buscar()" placeholder="Buscar..."
@@ -142,19 +124,6 @@ export default {
                     console.error(error);
                 });
         },
-        /*
-        filtrar() {
-            const vm = this;
-            this.axios.get(this.baseUrl + "/productos?_expand=categoria" + this.textToFilter + "&q=" + this.textToSearch)
-                .then(function (response) {
-                    console.log(response);
-                    vm.itemList = response.data;
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
-        },
-*/
         filtrar() {
             this.textToFilter = '';
             if (this.filter.categoriaId != null && this.filter.categoriaId != '') {
@@ -162,8 +131,6 @@ export default {
             }
             this.getList();
         },
-
-
         edit(item) {
             this.itemToEdit = Object.assign({}, item);
             this.showModalEdit = true;
