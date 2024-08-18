@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import UsuarioView from '../views/usuario/UsuarioView.vue';
 import ProveedorView from '../views/proveedor/ProveedorView.vue';
 import CategoriaView from '../views/categoria/CategoriaView.vue';
-import ProductoView from '../views/producto/ProductoView.vue';
+import PedidoView from '../views/pedido/PedidoView.vue';
 
 const routes = [
   {
@@ -41,7 +41,13 @@ const routes = [
     component: UsuarioView,
     // meta: { requiresAuth: true, role: ['admin','secretaria','veterinario'] }
   },
-];
+  {
+    path: '/pedidos',
+    name: 'pedidos',
+    component: PedidoView,
+    // meta: { requiresAuth: true, role: ['admin','secretaria','veterinario'] } 
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
