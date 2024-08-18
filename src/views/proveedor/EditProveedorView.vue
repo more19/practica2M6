@@ -10,7 +10,7 @@
         </div>
 
         <div class="form-group">
-          <label for="email">Correo:</label>
+          <label for="email">Correo electrónico:</label>
           <input type="text" id="email" v-model="form.correo" :class="{ 'is-invalid': errors.correo }"
             placeholder="Ingrese el correo electronico (opcional)" />
           <div v-if="errors.correo" class="invalid-feedback">{{ errors.correo }}</div>

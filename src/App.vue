@@ -5,6 +5,7 @@
     <router-link to="/usuarios" class="menu-item">Usuarios</router-link>
     <router-link to="/proveedor" class="menu-item">Proveedores</router-link>
     <router-link to="/categoria" class="menu-item">Categorias</router-link>
+    <router-link to="/producto" class="menu-item">Productos</router-link>
   </Menu>
   <router-view/>
 </template>
